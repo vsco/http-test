@@ -1,0 +1,13 @@
+#!/bin/bash
+set -x
+
+GPM="gpm"
+
+which gpm > /dev/null 2>&1 || {
+  wget https://raw.githubusercontent.com/pote/gpm/154853157fbdd53d489a60a93f30c95123701992/bin/gpm
+  chmod 755 ./gpm
+  GPM="./gpm"
+}
+
+$GPM install
+
