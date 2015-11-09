@@ -12,7 +12,7 @@ import (
 	"encoding/json"
 	"log"
 
-	"github.com/vsco/goji_test/response"
+	"github.com/vsco/goji-test/response"
 	"github.com/zenazn/goji/web"
 )
 

@@ -12,7 +12,7 @@ import (
 	"log"
 
 	"github.com/stretchr/testify/assert"
-	"github.com/vsco/goji_test/response"
+	"github.com/vsco/goji-test/response"
 )
 
 type assertionGroup struct {
