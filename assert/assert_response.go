@@ -72,7 +72,7 @@ func (a *assertionGroup) ContainsHeaderValue(h string, v string) *assertionGroup
 	}
 
 	if av != v {
-		a.Errorf("%s was not equal to %s", h, v)
+		a.Errorf("%s was not equal to %s. actual %s", h, v, av)
 	}
 
 	return a

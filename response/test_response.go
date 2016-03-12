@@ -4,7 +4,6 @@ import (
 	"encoding/json"
 	"io"
 	"io/ioutil"
-	"log"
 	"net/http"
 )
 
@@ -17,12 +16,8 @@ type TestResponse struct {
 	Response   *http.Response
 }
 
-func (r *TestResponse) UnmarshalBody(v interface{}) {
-	err := json.Unmarshal(r.BodyBytes, v)
-
-	if err != nil {
-		log.Panic(err)
-	}
+func (r *TestResponse) UnmarshalBody(v interface{}) error {
+	return json.Unmarshal(r.BodyBytes, v)
 }
 
 func NewTestResponse(rec *http.Response) (r *TestResponse) {

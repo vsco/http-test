@@ -18,24 +18,21 @@ func testHandler(c web.C, w http.ResponseWriter, r *http.Request) {
 s := web.New()
 s.Post("/post", testHandler)
 
-bldr := builder.WithMux(s)
-
 // Sending Requests. 
-resp := bldr.Post("/post").Do()
+resp := Post("/post").Use(s).Do()
 
 // Sending POST Params
-resp := bldr.Post("/post").Param("foo", "bar").Do()
-resp := bldr.Post("/post").Params(map[string]string{"foo":"bar",}).Do()
+resp := Post("/post").Use(s).Params(map[string]string{"foo":"bar",}).Do()
 	
 // Sending JSON POST Bodies
 js := &json{
 	Foo: "bar",
 }
-resp := bldr.Post("/post").JSON(js).Do()
+resp := Post("/post").Use(s).JSON(js).Do()
 	
 // Sending Headers
-resp := bldr.Post("/post").Header("foo", "bar").Do()
-resp := bldr.Post("/post").Headers(map[string]string{"foo":"bar",}).Do()
+resp := Post("/post").Use(s).Header("foo", "bar").Do()
+resp := Post("/post").Use(s).Headers(map[string]string{"foo":"bar",}).Do()
 ```
 
 # Asserting Responses
@@ -70,7 +67,7 @@ func TestResponse(t *testing.T) {
 		Foo: "bar",
 	}
 	
-	req := builder.WithMux(s).Post("/post").JSON(js).Do()
+	req := Post("/post").Use(s).JSON(js).Do()
 	
 	expected := &json{
 		Foo: "bar",
