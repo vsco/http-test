@@ -7,7 +7,7 @@ import (
 	"io/ioutil"
 	"log"
 
-	"github.com/vsco/goji-test/assert"
+	"github.com/vsco/http-test/assert"
 	"github.com/zenazn/goji/web"
 )
 
