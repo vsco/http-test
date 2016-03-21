@@ -23,7 +23,7 @@ type RequestBuilder struct {
 	path     string
 	body     io.Reader
 	context  web.C
-	mux      *web.Mux
+	mux      http.Handler
 	Request  *http.Request
 	Response *response.TestResponse
 }
@@ -77,7 +77,7 @@ func (r *RequestBuilder) Patch(path string) *RequestBuilder {
 	return r
 }
 
-func WithMux(m *web.Mux) (r *RequestBuilder) {
+func WithMux(m http.Handler) (r *RequestBuilder) {
 	r = &RequestBuilder{
 		path:    "/",
 		method:  "GET",
@@ -140,12 +140,6 @@ func (r *RequestBuilder) Header(k string, v string) *RequestBuilder {
 	}
 
 	r.headers[k] = v
-
-	return r
-}
-
-func (r *RequestBuilder) Context(c web.C) *RequestBuilder {
-	r.context = c
 
 	return r
 }

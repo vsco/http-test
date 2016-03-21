@@ -1,10 +1,10 @@
-# goji_test
-Test helpers for the Goji web framework
+# http_test
+Test helpers for the net/http requests.
 
 # Request Builder
 
 ```Go
-import request "github.com/vsco/goji_test/builder"
+import request "github.com/vsco/http_test/builder"
 
 type json struct {
 	Foo string `json:"foo"`
@@ -40,8 +40,8 @@ resp := Post("/post").Use(s).Headers(map[string]string{"foo":"bar",}).Do()
 ```Go
 
 import (
-	"github.com/vsco/goji_test/builder"
-	"github.com/vsco/goji_test/assert"
+	"github.com/vsco/http_test/builder"
+	"github.com/vsco/http_test/assert"
 )
 
 func jsonEchoHandler(c web.C, w http.ResponseWriter, r *http.Request) {
