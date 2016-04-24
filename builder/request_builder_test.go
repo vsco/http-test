@@ -8,19 +8,18 @@ import (
 	"log"
 
 	"github.com/vsco/http-test/assert"
-	"github.com/zenazn/goji/web"
 )
 
 type jsonResponse struct {
 	Foo string `json:"foo"`
 }
 
-func testHandler(c web.C, w http.ResponseWriter, r *http.Request) {
+func testHandler(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Etag", "abcde")
 	w.Write([]byte(r.Method))
 }
 
-func jsonEchoHandler(c web.C, w http.ResponseWriter, r *http.Request) {
+func jsonEchoHandler(w http.ResponseWriter, r *http.Request) {
 	body, err := ioutil.ReadAll(r.Body)
 
 	if err != nil {
@@ -31,16 +30,16 @@ func jsonEchoHandler(c web.C, w http.ResponseWriter, r *http.Request) {
 	w.Write(body)
 }
 
-func server() *web.Mux {
-	s := web.New()
-	s.Post("/post", testHandler)
-	s.Get("/get", testHandler)
-	s.Put("/put", testHandler)
-	s.Delete("/delete", testHandler)
-	s.Head("/head", testHandler)
-	s.Options("/options", testHandler)
-	s.Patch("/patch", testHandler)
-	s.Post("/json", jsonEchoHandler)
+func server() *http.ServeMux {
+	s := http.NewServeMux()
+	s.HandleFunc("/post", testHandler)
+	s.HandleFunc("/get", testHandler)
+	s.HandleFunc("/put", testHandler)
+	s.HandleFunc("/delete", testHandler)
+	s.HandleFunc("/head", testHandler)
+	s.HandleFunc("/options", testHandler)
+	s.HandleFunc("/patch", testHandler)
+	s.HandleFunc("/json", jsonEchoHandler)
 
 	return s
 }

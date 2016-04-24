@@ -13,7 +13,6 @@ import (
 	"log"
 
 	"github.com/vsco/http-test/response"
-	"github.com/zenazn/goji/web"
 )
 
 type RequestBuilder struct {
@@ -22,7 +21,6 @@ type RequestBuilder struct {
 	headers  map[string]string
 	path     string
 	body     io.Reader
-	context  web.C
 	mux      http.Handler
 	Request  *http.Request
 	Response *response.TestResponse
@@ -79,10 +77,9 @@ func (r *RequestBuilder) Patch(path string) *RequestBuilder {
 
 func WithMux(m http.Handler) (r *RequestBuilder) {
 	r = &RequestBuilder{
-		path:    "/",
-		method:  "GET",
-		mux:     m,
-		context: web.C{Env: map[interface{}]interface{}{}},
+		path:   "/",
+		method: "GET",
+		mux:    m,
 	}
 
 	return
